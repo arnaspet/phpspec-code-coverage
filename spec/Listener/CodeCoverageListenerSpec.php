@@ -12,7 +12,6 @@ use PhpSpec\ObjectBehavior;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
 use SebastianBergmann\CodeCoverage\Driver\Driver;
 use SebastianBergmann\CodeCoverage\Filter;
-use SebastianBergmann\CodeCoverage\RawCodeCoverageData;
 use stdClass;
 
 /**
@@ -86,27 +85,10 @@ class CodeCoverageListenerSpec extends ObjectBehavior
             ->during('beforeSuite', [$event]);
     }
 
-    public function let(ConsoleIO $io)
+    public function let(ConsoleIO $io, Driver $driver)
     {
-        $codeCoverage = new CodeCoverage(new DriverStub(), new Filter());
+        $codeCoverage = new CodeCoverage($driver->getWrappedObject(), new Filter());
 
         $this->beConstructedWith($io, $codeCoverage, []);
-    }
-}
-
-class DriverStub extends Driver
-{
-    public function nameAndVersion(): string
-    {
-        return 'DriverStub';
-    }
-
-    public function start(bool $determineUnusedAndDead = true): void
-    {
-    }
-
-    public function stop(): RawCodeCoverageData
-    {
-        return RawCodeCoverageData::fromXdebugWithoutPathCoverage([]);
     }
 }

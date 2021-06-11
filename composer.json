@@ -66,6 +66,11 @@
             "src/bootstrap.php"
         ]
     },
+    "autoload-dev": {
+        "psr-4": {
+            "spec\\FriendsOfPhpSpec\\PhpSpec\\CodeCoverage\\": "spec/"
+        }
+    },
     "minimum-stability": "stable",
     "scripts": {
         "grumphp": "./vendor/bin/grumphp run"
